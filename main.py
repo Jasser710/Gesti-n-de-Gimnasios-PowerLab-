@@ -45,11 +45,11 @@ def gestionar_sucursales():
         elif opcion == "3":
             break
         else:
-            print("❌ Opción inválida")
+            print("  Opción inválida")
 
 def agregar_sucursal():
     if len(sucursales) >= 30:
-        print("❌ Límite máximo de 30 sucursales alcanzado")
+        print("  Límite máximo de 30 sucursales alcanzado")
         return
     
     print("\n--- Agregar Nueva Sucursal ---")
@@ -62,12 +62,12 @@ def agregar_sucursal():
     # Verificar si el código ya existe
     for sucursal in sucursales:
         if sucursal.codigo == codigo:
-            print("❌ Ya existe una sucursal con ese código")
+            print("  Ya existe una sucursal con ese código")
             return
     
     nueva_sucursal = Sucursal(codigo, provincia, canton, email, telefono)
     sucursales.append(nueva_sucursal)
-    print("✅ Sucursal agregada exitosamente")
+    print("  Sucursal agregada exitosamente")
 
 def listar_sucursales():
     if not sucursales:
@@ -97,11 +97,11 @@ def gestionar_instructores():
         elif opcion == "3":
             break
         else:
-            print("❌ Opción inválida")
+            print("  Opción inválida")
 
 def agregar_instructor():
     if not sucursales:
-        print("❌ Primero debe crear una sucursal")
+        print("  Primero debe crear una sucursal")
         return
     
     print("\n--- Agregar Nuevo Instructor ---")
@@ -121,7 +121,7 @@ def agregar_instructor():
         # Verificar si la cédula ya existe
         for instructor in instructores:
             if instructor.cedula == cedula:
-                print("❌ Ya existe un instructor con esa cédula")
+                print("  Ya existe un instructor con esa cédula")
                 return
         
         # Selección de especialidades
@@ -140,25 +140,25 @@ def agregar_instructor():
                     especialidad = ESPECIALIDADES[opcion_esp]
                     if especialidad not in especialidades:
                         especialidades.append(especialidad)
-                        print(f"✅ Especialidad agregada: {especialidad}")
+                        print(f"  Especialidad agregada: {especialidad}")
                     else:
-                        print("❌ Especialidad ya agregada")
+                        print("  Especialidad ya agregada")
                 else:
-                    print("❌ Número inválido")
+                    print("  Número inválido")
             except ValueError:
-                print("❌ Ingrese un número válido")
+                print("  Ingrese un número válido")
         
         if not especialidades:
-            print("❌ El instructor debe tener al menos una especialidad")
+            print("  El instructor debe tener al menos una especialidad")
             return
         
         nuevo_instructor = Instructor(cedula, nombre, telefono, email, fecha_nacimiento, especialidades, sucursal_seleccionada)
         instructores.append(nuevo_instructor)
         sucursal_seleccionada.instructores.append(nuevo_instructor)
-        print("✅ Instructor agregado exitosamente")
+        print("  Instructor agregado exitosamente")
         
     except (ValueError, IndexError):
-        print("❌ Selección inválida")
+        print("  Selección inválida")
 
 def listar_instructores():
     if not instructores:
@@ -190,11 +190,11 @@ def gestionar_clientes():
         elif opcion == "4":
             break
         else:
-            print("❌ Opción inválida")
+            print("  Opción inválida")
 
 def agregar_cliente():
     if not sucursales:
-        print("❌ Primero debe crear una sucursal")
+        print("  Primero debe crear una sucursal")
         return
     
     print("\n--- Agregar Nuevo Cliente ---")
@@ -209,7 +209,7 @@ def agregar_cliente():
         # Verificar si la cédula ya existe
         for cliente in clientes:
             if cliente.cedula == cedula:
-                print("❌ Ya existe un cliente con esa cédula")
+                print("  Ya existe un cliente con esa cédula")
                 return
         
         nombre = input("Nombre completo: ")
@@ -222,7 +222,7 @@ def agregar_cliente():
         nuevo_cliente = Cliente(cedula, nombre, telefono, email, fecha_nacimiento, sexo, fecha_inscripcion, sucursal_seleccionada)
         clientes.append(nuevo_cliente)
         sucursal_seleccionada.clientes.append(nuevo_cliente)
-        print("✅ Cliente agregado exitosamente")
+        print("  Cliente agregado exitosamente")
         
         # Preguntar si asignar instructor ahora
         if sucursal_seleccionada.instructores:
@@ -231,7 +231,7 @@ def agregar_cliente():
                 asignar_instructor_a_cliente(nuevo_cliente, sucursal_seleccionada)
         
     except (ValueError, IndexError):
-        print("❌ Selección inválida")
+        print("  Selección inválida")
 
 def listar_clientes():
     if not clientes:
@@ -240,13 +240,13 @@ def listar_clientes():
     
     print("\n--- Clientes Registrados ---")
     for i, cliente in enumerate(clientes, 1):
-        print(f"{i}. {cliente}")  # ✅ Esto ahora mostrará sucursal e instructor automáticamente
+        print(f"{i}. {cliente}")  #   Esto ahora mostrará sucursal e instructor automáticamente
         print(f"   Mediciones: {len(cliente.mediciones)}/10 | Clases: {len(cliente.clases_inscritas)}/3")
         print()
 
 def asignar_instructor_cliente():
     if not clientes:
-        print("❌ No hay clientes registrados")
+        print("  No hay clientes registrados")
         return
     
     print("Seleccione el cliente:")
@@ -264,13 +264,13 @@ def asignar_instructor_cliente():
                 break
         
         if not sucursal_cliente or not sucursal_cliente.instructores:
-            print("❌ No hay instructores disponibles en la sucursal del cliente")
+            print("  No hay instructores disponibles en la sucursal del cliente")
             return
         
         asignar_instructor_a_cliente(cliente_seleccionado, sucursal_cliente)
         
     except (ValueError, IndexError):
-        print("❌ Selección inválida")
+        print("  Selección inválida")
 
 def asignar_instructor_a_cliente(cliente, sucursal):
     print(f"\nInstructores disponibles en {sucursal.canton}:")
@@ -281,9 +281,9 @@ def asignar_instructor_a_cliente(cliente, sucursal):
         instructor_idx = int(input("Seleccione instructor: ")) - 1
         instructor_seleccionado = sucursal.instructores[instructor_idx]
         cliente.instructor_asignado = instructor_seleccionado
-        print(f"✅ Instructor {instructor_seleccionado.nombre} asignado a {cliente.nombre}")
+        print(f"  Instructor {instructor_seleccionado.nombre} asignado a {cliente.nombre}")
     except (ValueError, IndexError):
-        print("❌ Selección inválida")
+        print("  Selección inválida")
 
 # ==================== OPCIÓN 4: REGISTRO DE MEDICIONES ====================
 def gestionar_mediciones():
@@ -301,11 +301,11 @@ def gestionar_mediciones():
         elif opcion == "3":
             break
         else:
-            print("❌ Opción inválida")
+            print("  Opción inválida")
 
 def nueva_medicion():
     if not clientes:
-        print("❌ No hay clientes registrados")
+        print("No hay clientes registrados")
         return
     
     print("Seleccione el cliente para la medición:")
@@ -317,12 +317,12 @@ def nueva_medicion():
         
         # Verificar máximo de mediciones
         if len(cliente_seleccionado.mediciones) >= 10:
-            print("❌ Límite máximo de 10 mediciones alcanzado para este cliente")
+            print("Límite máximo de 10 mediciones alcanzado para este cliente")
             return
         
         # Verificar que tenga instructor asignado
         if not cliente_seleccionado.instructor_asignado:
-            print("❌ El cliente no tiene instructor asignado")
+            print("  El cliente no tiene instructor asignado")
             return
         
         print(f"\n--- Nueva Medición para {cliente_seleccionado.nombre} ---")
@@ -388,15 +388,15 @@ def nueva_medicion():
         print(f"Proteína diaria recomendada: {proteina_recomendada:.1f}g")
         print(f"Vasos de agua recomendados: {vasos_agua:.1f} vasos de 250ml")
         if clasificacion in ["Obesidad leve", "Obesidad media", "Obesidad mórbida"]:
-            print("⚠️  CLIENTE DE ALTO RIESGO")
+            print("   CLIENTE DE ALTO RIESGO")
         print("="*50)
         
     except (ValueError, IndexError):
-        print("❌ Datos inválidos")
+        print("  Datos inválidos")
 
 def ver_historial_mediciones():
     if not clientes:
-        print("❌ No hay clientes registrados")
+        print("  No hay clientes registrados")
         return
     
     print("Seleccione el cliente:")
@@ -407,7 +407,7 @@ def ver_historial_mediciones():
         cliente_seleccionado = clientes[cliente_idx]
         
         if not cliente_seleccionado.mediciones:
-            print("❌ El cliente no tiene mediciones registradas")
+            print("  El cliente no tiene mediciones registradas")
             return
         
         print(f"\n--- Historial de Mediciones de {cliente_seleccionado.nombre} ---")
@@ -418,7 +418,7 @@ def ver_historial_mediciones():
             print(f"  Grasa: {medicion.porcentaje_grasa}% | Músculo: {medicion.porcentaje_musculo}%")
         
     except (ValueError, IndexError):
-        print("❌ Selección inválida")
+        print("  Selección inválida")
 
 # ==================== OPCIÓN 5: GESTIÓN DE CLASES GRUPALES ====================
 def gestionar_clases_grupales():
@@ -439,11 +439,11 @@ def gestionar_clases_grupales():
         elif opcion == "4":
             break
         else:
-            print("❌ Opción inválida")
+            print("  Opción inválida")
 
 def crear_clase_grupal():
     if not sucursales:
-        print("❌ Primero debe crear una sucursal")
+        print("  Primero debe crear una sucursal")
         return
     
     print("\n--- Crear Nueva Clase Grupal ---")
@@ -455,14 +455,14 @@ def crear_clase_grupal():
         sucursal_seleccionada = sucursales[sucursal_idx]
         
         if not sucursal_seleccionada.instructores:
-            print("❌ No hay instructores en esta sucursal")
+            print("  No hay instructores en esta sucursal")
             return
         
         codigo = input("Código de la clase: ")
         # Verificar si el código ya existe
         for clase in clases_grupales:
             if clase.codigo == codigo:
-                print("❌ Ya existe una clase con ese código")
+                print("  Ya existe una clase con ese código")
                 return
         
         capacidad = int(input("Capacidad máxima: "))
@@ -481,7 +481,7 @@ def crear_clase_grupal():
                                    if tipo_clase in inst.especialidades]
         
         if not instructores_especialidad:
-            print(f"❌ No hay instructores con especialidad en {tipo_clase}")
+            print(f"  No hay instructores con especialidad en {tipo_clase}")
             return
         
         print(f"\nInstructores de {tipo_clase}:")
@@ -494,10 +494,10 @@ def crear_clase_grupal():
         nueva_clase = ClaseGrupal(codigo, capacidad, salon, horario, tipo_clase, instructor_seleccionado)
         clases_grupales.append(nueva_clase)
         sucursal_seleccionada.clases_grupales.append(nueva_clase)
-        print("✅ Clase grupal creada exitosamente")
+        print("  Clase grupal creada exitosamente")
         
     except (ValueError, IndexError):
-        print("❌ Datos inválidos")
+        print("  Datos inválidos")
 
 def listar_clases_grupales():
     if not clases_grupales:
@@ -514,7 +514,7 @@ def listar_clases_grupales():
 
 def matricular_cliente_clase():
     if not clientes or not clases_grupales:
-        print("❌ No hay clientes o clases grupales registradas")
+        print("  No hay clientes o clases grupales registradas")
         return
     
     print("Seleccione el cliente:")
@@ -526,7 +526,7 @@ def matricular_cliente_clase():
         
         # Verificar máximo de clases
         if len(cliente_seleccionado.clases_inscritas) >= 3:
-            print("❌ El cliente ya tiene el máximo de 3 clases")
+            print("  El cliente ya tiene el máximo de 3 clases")
             return
         
         print("\nClases disponibles:")
@@ -534,7 +534,7 @@ def matricular_cliente_clase():
                             if len(clase.clientes_inscritos) < clase.capacidad]
         
         if not clases_disponibles:
-            print("❌ No hay clases con cupos disponibles")
+            print("  No hay clases con cupos disponibles")
             return
         
         for i, clase in enumerate(clases_disponibles, 1):
@@ -546,16 +546,16 @@ def matricular_cliente_clase():
         
         # Verificar que no esté ya matriculado
         if clase_seleccionada in cliente_seleccionado.clases_inscritas:
-            print("❌ El cliente ya está matriculado en esta clase")
+            print("  El cliente ya está matriculado en esta clase")
             return
         
         # Matricular
         cliente_seleccionado.clases_inscritas.append(clase_seleccionada)
         clase_seleccionada.clientes_inscritos.append(cliente_seleccionado)
-        print(f"✅ Cliente matriculado en {clase_seleccionada.tipo} exitosamente")
+        print(f"  Cliente matriculado en {clase_seleccionada.tipo} exitosamente")
         
     except (ValueError, IndexError):
-        print("❌ Selección inválida")
+        print("  Selección inválida")
 
 # ==================== OPCIÓN 6: GENERAR RUTINAS ====================
 def gestionar_rutinas():
@@ -573,11 +573,11 @@ def gestionar_rutinas():
         elif opcion == "3":
             break
         else:
-            print("❌ Opción inválida")
+            print("  Opción inválida")
 
 def crear_modificar_rutina():
     if not clientes:
-        print("❌ No hay clientes registrados")
+        print("  No hay clientes registrados")
         return
     
     print("Seleccione el cliente:")
@@ -598,14 +598,14 @@ def crear_modificar_rutina():
         # Crear o sobrescribir rutina
         nueva_rutina = Rutina(ejercicios_por_area)
         cliente_seleccionado.rutina_actual = nueva_rutina
-        print("✅ Rutina creada/actualizada exitosamente")
+        print("  Rutina creada/actualizada exitosamente")
         
     except (ValueError, IndexError):
-        print("❌ Selección inválida")
+        print("  Selección inválida")
 
 def ver_rutina_cliente():
     if not clientes:
-        print("❌ No hay clientes registrados")
+        print("  No hay clientes registrados")
         return
     
     print("Seleccione el cliente:")
@@ -616,7 +616,7 @@ def ver_rutina_cliente():
         cliente_seleccionado = clientes[cliente_idx]
         
         if not cliente_seleccionado.rutina_actual:
-            print("❌ El cliente no tiene rutina asignada")
+            print("  El cliente no tiene rutina asignada")
             return
         
         print(f"\n--- Rutina Actual de {cliente_seleccionado.nombre} ---")
@@ -627,7 +627,7 @@ def ver_rutina_cliente():
                 print(f"  {i}. {ejercicio}")
         
     except (ValueError, IndexError):
-        print("❌ Selección inválida")
+        print("  Selección inválida")
 
 # ==================== FUNCIÓN PRINCIPAL ====================
 def main():
@@ -652,7 +652,7 @@ def main():
             print("¡Gracias por usar PowerLab System!")
             break
         else:
-            print("❌ Opción inválida. Intente nuevamente.")
+            print("  Opción inválida. Intente nuevamente.")
 
 if __name__ == "__main__":
     main()
